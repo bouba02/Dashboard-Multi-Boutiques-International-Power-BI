@@ -8,22 +8,22 @@ Dashboard Power BI professionnel pour l'analyse d'un réseau de 306 boutiques in
 
 ## 🎯 Aperçu des Dashboards
 
-### Dashboard 1 : Ventes (Key Insights)
-![Dashboard Ventes](dashboard_page_1.png)
+### Dashboard 1 : Ventes 
+![Dashboard Ventes](dashboard_page_3.png)
 - **144,87K** ventes totales
 - **2,98M** unités vendues
 - **500,40M€** chiffre d'affaires
 - Analyse par catégorie, marque, classe et évolution temporelle
 
-### Dashboard 2 : Produits (Performance Analysis)
+### Dashboard 2 : Produits 
 ![Dashboard Produits](dashboard_page_2.png)
 - **1,689** produits au catalogue
 - Analyse retours vs ventes
 - Top 3 produits les plus vendus
 - Distribution par catégorie et sous-catégorie
 
-### Dashboard 3 : Boutiques (Geographic Analysis)
-![Dashboard Boutiques](dashboard_page_3.png)
+### Dashboard 3 : Boutiques 
+![Dashboard Boutiques](dashboard_page_1.png)
 - **306** boutiques dans le monde
 - **11K** employés
 - Répartition géographique (16 pays, 3 continents)
@@ -46,9 +46,9 @@ Dashboard Power BI professionnel pour l'analyse d'un réseau de 306 boutiques in
 Dashboard-Multi-Boutiques-International/
 │
 ├── 📊 Dashboards/
-│   ├── dashboard_page_1.png              # Ventes
+│   ├── dashboard_page_1.png              # Boutiques
 │   ├── dashboard_page_2.png              # Produits
-│   └── dashboard_page_3.png              # Boutiques
+│   └── dashboard_page_3.png              # Ventes
 │
 ├── 📁 dataset/
 │   ├── Geographie.csv                    # Données géographiques
@@ -65,7 +65,7 @@ Dashboard-Multi-Boutiques-International/
 │       └── Sales 2021 T3.csv
 │
 ├── 📄 Dashboard Boutique.pbix            # Fichier Power BI principal
-├── 📄 Dashboard Boutique.pdf             # Version PDF documentation
+├── 📄 Dashboard Boutique.pdf             # Dashboard PDF         
 └── 📖 README.md                          # Ce fichier
 ```
 
@@ -187,19 +187,6 @@ Dashboard Boutique.pbix
 
 ---
 
-## 📺 Tutoriel Complet
-
-**[Série Power BI de A à Z (6 parties)](https://youtube.com/@BoubacarDataAnalyst)**
-
-1. Installation MySQL & Import Base
-2. Analyse SQL des Ventes
-3. Power BI - ETL avec Power Query
-4. Star Schema & Relations
-5. **Création 3 Dashboards (1h02)** ⭐
-6. Publication Power BI Service
-
----
-
 ## 🤝 Contribuer
 
 Contributions bienvenues !
@@ -226,8 +213,7 @@ Data Analyst | Power BI Expert
 - 📺 YouTube: [@BoubacarDataAnalyst](https://youtube.com/@BoubacarDataAnalyst)
 - 💼 LinkedIn: [Boubacar Nikiema](https://linkedin.com/in/boubacar-nikiema)
 - 🌐 GitHub: [@bouba02](https://github.com/bouba02)
-- 📧 Email: contact@ngroupmedia.com
-- 📍 Kénitra, Maroc
+- 📧 Email: nikiemaboubacar@gmail.com
 
 ---
 
@@ -245,7 +231,7 @@ Template adaptable pour :
 
 <div align="center">
 
-**Made with ❤️ by Boubacar Nikiema | © 2026**
+**Made by Boubacar Nikiema | © 2026**
 
 *Learning in Public - Partageons la connaissance*
 
