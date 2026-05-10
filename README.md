@@ -1,240 +1,163 @@
-# 📊 Dashboard Power BI Multi-Boutiques International
+# International Retail Dashboard — 306 Stores · 16 Countries | Power BI
 
-Dashboard Power BI professionnel pour l'analyse d'un réseau de 306 boutiques internationales.
+> **€500M revenue · 148,000 transactions · 1,689 products · 3 continents**  
+> 3 dashboards · 30+ DAX measures · 6-table Star Schema · Time Intelligence
 
-**148,000+ transactions** | **1,689 produits** | **500M€ CA** | **16 pays**
-
----
-
-## 🎯 Aperçu des Dashboards
-
-### Dashboard 1 : Ventes 
-![Dashboard Ventes](dashboard_page_3.png)
-- **144,87K** ventes totales
-- **2,98M** unités vendues
-- **500,40M€** chiffre d'affaires
-- Analyse par catégorie, marque, classe et évolution temporelle
-
-### Dashboard 2 : Produits 
-![Dashboard Produits](dashboard_page_2.png)
-- **1,689** produits au catalogue
-- Analyse retours vs ventes
-- Top 3 produits les plus vendus
-- Distribution par catégorie et sous-catégorie
-
-### Dashboard 3 : Boutiques 
-![Dashboard Boutiques](dashboard_page_1.png)
-- **306** boutiques dans le monde
-- **11K** employés
-- Répartition géographique (16 pays, 3 continents)
-- Performance par type (Store, Online, Reseller, Catalog)
+🇫🇷 [Version française disponible ici](README_FR.md)
 
 ---
 
-## ✨ Fonctionnalités Principales
+## Project Context
 
-- **Navigation multi-pages** avec boutons interactifs
-- **Slicers synchronisés** (Année, Mois, Pays, Boutique)
-- **30+ mesures DAX** (CA, croissance %, marges, KPIs)
-- **8 types de visualisations** (gauges, donut, line charts, tables)
-- **Design professionnel** : Palette orange (#EB601B) / bleu marine
+Performance analysis of an international retail network of 306 stores operating
+across 16 countries and 3 continents — covering sales, product catalog, and
+store performance over 2 years (2020–2021).
+
+**Scope:**
+
+| Dimension | Value |
+|---|---|
+| Total Revenue | **€500.40M** |
+| Transactions | **148,000+** |
+| Products | **1,689** |
+| Stores | **306** (Store · Online · Reseller · Catalog) |
+| Countries | **16** — 3 continents |
+| Employees | **11,000** |
 
 ---
 
-## 📂 Structure du Repository
+## Dashboards — 3 Pages
+
+### Dashboard 1 — Sales
+![Sales](dashboard_page_3.png)
+Revenue · Units sold · YoY growth · Analysis by category, brand and class · Time evolution
+
+### Dashboard 2 — Products
+![Products](dashboard_page_2.png)
+1,689-product catalog · Returns vs sales analysis · Top 3 products · Category and subcategory distribution · Return rate by segment
+
+### Dashboard 3 — Stores
+![Stores](dashboard_page_1.png)
+306 stores · Geographic breakdown (16 countries · 3 continents) · Performance by channel type · 11,000 employees
+
+---
+
+## Data Model — Star Schema
+
 ```
-Dashboard-Multi-Boutiques-International/
-│
-├── 📊 Dashboards/
-│   ├── dashboard_page_1.png              # Boutiques
-│   ├── dashboard_page_2.png              # Produits
-│   └── dashboard_page_3.png              # Ventes
-│
-├── 📁 dataset/
-│   ├── Geographie.csv                    # Données géographiques
-│   ├── Boutiques.csv                     # Liste boutiques
-│   ├── Produits.csv                      # Catalogue produits
-│   ├── Categorie Produits.csv            # Catégories
-│   ├── Sous Categories Produits.csv      # Sous-catégories
-│   └── Sales/                            # Ventes par période
-│       ├── Sales 2020 T1.csv
-│       ├── Sales 2020 T2.csv
-│       ├── Sales 2020 T3.csv
-│       ├── Sales 2021 T1.csv
-│       ├── Sales 2021 T2.csv
-│       └── Sales 2021 T3.csv
-│
-├── 📄 Dashboard Boutique.pbix            # Fichier Power BI principal
-├── 📄 Dashboard Boutique.pdf             # Dashboard PDF         
-└── 📖 README.md                          # Ce fichier
+              [Dim_Date]
+                  │
+      ┌───────────┼───────────┐
+      │           │           │
+[Dim_Product] [Fact_Sales] [Dim_Store]
+  1,689 refs   148,000+    306 stores
+      │          rows           │
+      ▼                         ▼
+[Dim_Category]           [Dim_Geography]
+  5 categories              16 countries
 ```
 
----
-
-## 🛠️ Technologies Utilisées
-
-- **Power BI Desktop** : Création dashboards
-- **Power Query / M** : ETL et transformations
-- **DAX** : Mesures et calculs avancés
-- **CSV** : Format données sources
-- **Star Schema** : Modélisation relationnelle
+**6 tables · Many-to-One relationships · Cross-page synchronized filters**
 
 ---
 
-## 📊 Modèle de Données (Star Schema)
-```
-         ┌──────────────┐
-         │  Dim_Date    │
-         │  (Calendar)  │
-         └──────┬───────┘
-                │
-      ┌─────────┼──────────┐
-      │         │          │
- ┌────▼────┐ ┌─▼───────┐ ┌▼────────────┐
- │Dim_     │ │ Fact_   │ │Dim_         │
- │Produit  │◄┤ Sales   ├►│Boutique     │
- │         │ │         │ │             │
- │1,689    │ │148,000+ │ │306          │
- │produits │ │lignes   │ │boutiques    │
- └─────────┘ └─────────┘ └─────────────┘
-       │                        │
-       ▼                        ▼
- ┌─────────────┐         ┌─────────────┐
- │Dim_         │         │Dim_         │
- │Categorie    │         │Geographie   │
- │             │         │             │
- │5 catégories │         │16 pays      │
- └─────────────┘         └─────────────┘
-```
+## DAX Measures — 30+
 
----
-
-## 📐 Mesures DAX Principales
 ```dax
-// Chiffre d'Affaires Total
-CA = SUM(Sales[Montant de Vente])
+// Revenue
+Revenue = SUM(Sales[Montant de Vente])
 
-// CA Année Précédente
-CA-1 = CALCULATE([CA], DATEADD(Dim_Date[Date], -1, YEAR))
+// Prior year comparison
+Revenue_PY = CALCULATE([Revenue], DATEADD(Dim_Date[Date], -1, YEAR))
 
-// Écart CA (%)
-Ecart CA = DIVIDE([CA] - [CA-1], [CA-1], 0)
+// YoY Growth
+Revenue_Growth_% = DIVIDE([Revenue] - [Revenue_PY], [Revenue_PY], 0)
 
-// Nombre de Ventes
-Nbre de Ventes = COUNTROWS(Sales)
+// Volume
+Nb_Sales        = COUNTROWS(Sales)
+Units_Sold      = SUM(Sales[Quantité de vente])
 
-// Quantité Vendue
-Quantité Vendue = SUM(Sales[Quantité de vente])
+// Profitability
+Avg_Profit_Margin = DIVIDE([Total Profit], [Revenue], 0)
 
-// Marge Moyenne
-Avg Profit Margin = DIVIDE([Profit Total], [CA], 0)
-
-// Taux de Retour
-Taux Retour = DIVIDE(
+// Quality
+Return_Rate = DIVIDE(
     SUM(Sales[Quantité de retour]),
     SUM(Sales[Quantité de vente]),
     0
 )
 ```
 
+**Advanced patterns:** Time Intelligence · CALCULATE · DATEADD · DIVIDE · Dynamic conditional formatting
+
 ---
 
-## 🚀 Installation
+## Dashboard Features
 
-### Prérequis
-- **Power BI Desktop** (dernière version)
-- **Windows 10/11** ou **macOS** (avec Parallels)
-- **4GB RAM** minimum (8GB recommandé)
+- Multi-page navigation with interactive buttons
+- Cross-page synchronized slicers (Year · Month · Country · Store)
+- 8 visualization types (gauges · donut · line charts · tables · bars)
+- Cohesive design — orange `#EB601B` / navy blue
 
-### Étapes
+---
 
-1. **Cloner le repository**
+## Tech Stack
+
+- **Power BI Desktop** — 3 dashboards, multi-page navigation
+- **Power Query / M** — consolidation of 6 quarterly CSV files (2020–2021)
+- **DAX** — 30+ measures with Time Intelligence
+- **Star Schema** — 6 tables, multi-dimensional modeling
+
+---
+
+## Quick Start
+
 ```bash
 git clone https://github.com/bouba02/Dashboard-Multi-Boutiques-International.git
-cd Dashboard-Multi-Boutiques-International
 ```
 
-2. **Ouvrir Power BI**
+Open `Dashboard Boutique.pbix` in Power BI Desktop.  
+`Home → Refresh` — CSV files load automatically.
+
+---
+
+## Repository Structure
+
 ```
-Dashboard Boutique.pbix
+Dashboard-Multi-Boutiques-International/
+├── README.md
+├── README_FR.md
+├── Dashboard Boutique.pbix
+├── Dashboard Boutique.pdf
+├── Dashboards/
+│   ├── dashboard_page_1.png    # Stores
+│   ├── dashboard_page_2.png    # Products
+│   └── dashboard_page_3.png    # Sales
+└── dataset/
+    ├── Geographie.csv
+    ├── Boutiques.csv
+    ├── Produits.csv
+    ├── Categorie Produits.csv
+    ├── Sous Categories Produits.csv
+    └── Sales/
+        ├── Sales 2020 T1.csv … Sales 2021 T3.csv
 ```
 
-3. **Actualiser les données**
-- Accueil → Actualiser
-- Les fichiers CSV seront automatiquement chargés
+---
 
-4. **Explorer les 3 dashboards**
-- Utiliser le menu de navigation (Boutiques, Produits, Ventes)
-- Tester les slicers synchronisés
+## Author
+
+**Boubacar Nikiema** — Data Analyst & BI Consultant
+
+Specialized in retail & distribution dashboards, multi-entity analytics and performance
+management using Power BI, SQL, Python and Excel. Based in Morocco, working with
+clients across Africa and French-speaking Europe.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-boubacar--nikiema-blue?logo=linkedin)](https://linkedin.com/in/boubacar-nikiema)
+[![YouTube](https://img.shields.io/badge/YouTube-BoubacarDataAnalyst-red?logo=youtube)](https://youtube.com/@BoubacarDataAnalyst)
+[![Email](https://img.shields.io/badge/Email-nikiemaboubacar%40gmail.com-gray?logo=gmail)](mailto:nikiemaboubacar@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-data.ngroupmediadigital.com-green)](https://data.ngroupmediadigital.com)
 
 ---
 
-## 🎓 Compétences Démontrées
-
-**Power BI :**
-- ✅ Modélisation Star Schema multi-tables
-- ✅ DAX avancé (Time Intelligence, CALCULATE, DIVIDE)
-- ✅ Power Query (merge, append, transformations)
-- ✅ Navigation multi-pages (bookmarks, buttons)
-- ✅ Slicers synchronisés cross-page
-- ✅ Conditional formatting dynamique
-
-**Business Intelligence :**
-- ✅ KPIs stratégiques (CA, croissance YoY, marges)
-- ✅ Analyse multi-dimensionnelle
-- ✅ Dashboard design professionnel
-- ✅ Storytelling avec données
-
----
-
-## 🤝 Contribuer
-
-Contributions bienvenues !
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/NouvelleFeature`)
-3. Commit (`git commit -m 'Ajout NouvelleFeature'`)
-4. Push (`git push origin feature/NouvelleFeature`)
-5. Ouvrir une Pull Request
-
----
-
-## 📝 Licence
-
-MIT License - Libre d'utilisation et modification.
-
----
-
-## 👤 Auteur
-
-**Boubacar Nikiema**  
-Data Analyst | Power BI Expert
-
-- 📺 YouTube: [@BoubacarDataAnalyst](https://youtube.com/@BoubacarDataAnalyst)
-- 💼 LinkedIn: [Boubacar Nikiema](https://linkedin.com/in/boubacar-nikiema)
-- 🌐 GitHub: [@bouba02](https://github.com/bouba02)
-- 📧 Email: nikiemaboubacar@gmail.com
-
----
-
-## 🎯 Cas d'Usage
-
-Template adaptable pour :
-- 🏪 Retail multi-magasins
-- 🛒 E-commerce (performance produits)
-- 📦 Distribution (analyse réseau)
-- 💼 Consulting BI (template clients)
-
----
-
-
-
-<div align="center">
-
-**Made by Boubacar Nikiema | © 2026**
-
-*Learning in Public - Partageons la connaissance*
-
-[⭐ Star ce repo](https://github.com/bouba02/Dashboard-Multi-Boutiques-International) • [📺 YouTube](https://youtube.com/@BoubacarDataAnalyst) • [💼 LinkedIn](https://linkedin.com/in/boubacar-nikiema)
-
-</div>
+*Simulated data · Code: MIT License*
